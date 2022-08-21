@@ -71,12 +71,12 @@
         </div>
       </div>
     </div>
-    <div v-if="Object.keys(tracksByDisc).length !== 1">
-      <div v-for="(disc, cd) in tracksByDisc" :key="cd">
-        <h2>Disc {{ cd }}</h2>
+    <div v-if="tracksByDisc.length > 1">
+      <div v-for="item in tracksByDisc" :key="item.disc">
+        <h2 class="disc">Disc {{ item.disc }}</h2>
         <TrackList
           :id="album.id"
-          :tracks="disc"
+          :tracks="item.tracks"
           :type="'album'"
           :album-object="album"
         />
@@ -137,6 +137,9 @@
       <div class="item" @click="copyUrl(album.id)">{{
         $t('contextMenu.copyUrl')
       }}</div>
+      <div class="item" @click="openInBrowser(album.id)">{{
+        $t('contextMenu.openInBrowser')
+      }}</div>
     </ContextMenu>
   </div>
 </template>
@@ -150,7 +153,7 @@ import locale from '@/locale';
 import { splitSoundtrackAlbumTitle, splitAlbumTitle } from '@/utils/common';
 import NProgress from 'nprogress';
 import { isAccountLoggedIn } from '@/utils/auth';
-import { groupBy } from 'lodash';
+import { groupBy, toPairs, sortBy } from 'lodash';
 
 import ExplicitSymbol from '@/components/ExplicitSymbol.vue';
 import ButtonTwoTone from '@/components/ButtonTwoTone.vue';
@@ -219,7 +222,12 @@ export default {
       }
     },
     tracksByDisc() {
-      return groupBy(this.tracks, 'cd');
+      if (this.tracks.length <= 1) return [];
+      const pairs = toPairs(groupBy(this.tracks, 'cd'));
+      return sortBy(pairs, p => p[0]).map(items => ({
+        disc: items[0],
+        tracks: items[1],
+      }));
     },
   },
   created() {
@@ -305,13 +313,17 @@ export default {
     },
     copyUrl(id) {
       let showToast = this.showToast;
-      this.$copyText('https://music.163.com/#/album?id=' + id)
+      this.$copyText(`https://music.163.com/#/album?id=${id}`)
         .then(function () {
           showToast(locale.t('toast.copied'));
         })
         .catch(error => {
           showToast(`${locale.t('toast.copyFailed')}${error}`);
         });
+    },
+    openInBrowser(id) {
+      const url = `https://music.163.com/#/album?id=${id}`;
+      window.open(url);
     },
   },
 };
@@ -377,6 +389,9 @@ export default {
       }
     }
   }
+}
+.disc {
+  color: var(--color-text);
 }
 
 .explicit-symbol {
