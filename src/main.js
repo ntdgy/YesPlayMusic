@@ -31,7 +31,7 @@ console.log(
 Vue.use(
   VueGtag,
   {
-    config: { id: 'G-KMJJCFZDKF' },
+    config: { id: 'G-YS60TZL363' },
   },
   router
 );
