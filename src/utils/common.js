@@ -28,7 +28,6 @@ export function isTrackPlayable(track) {
     result.reason = '付费专辑';
   } else if (track.fee === 8 || track.privilege?.fee === 8){
     result.playable = true;
-    result.reason = '可以播放';
     return result;
   }else if (
     track.noCopyrightRcmd !== null &&
