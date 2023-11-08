@@ -22,7 +22,7 @@ export function getMP3(id) {
   };
 
   return request({
-    url: '/song/url',
+    url: '/song/url/v1',
     method: 'get',
     params: {
       id,
