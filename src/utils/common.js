@@ -36,6 +36,7 @@ export function isTrackPlayable(track) {
     result.playable = false;
     result.reason = '已下架';
   }
+  result.playable = true;
   return result;
 }
 
