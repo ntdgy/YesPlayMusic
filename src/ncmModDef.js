@@ -157,7 +157,7 @@ module.exports = [
   {
     identifier: 'song_url',
     route: '/song/url/v1',
-    module: require('NeteaseCloudMusicApi/module/song_url'),
+    module: require('NeteaseCloudMusicApi/module/song_url_v1'),
   },
   {
     identifier: 'song_download_url',
