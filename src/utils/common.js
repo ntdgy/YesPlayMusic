@@ -26,6 +26,9 @@ export function isTrackPlayable(track) {
   } else if (track.fee === 4 || track.privilege?.fee === 4) {
     result.playable = false;
     result.reason = '付费专辑';
+  } else if (track.fee === 8 || track.privilege?.fee === 8) {
+    result.playable = true;
+    result.reason = '';
   } else if (
     track.noCopyrightRcmd !== null &&
     track.noCopyrightRcmd !== undefined
@@ -35,7 +38,7 @@ export function isTrackPlayable(track) {
   } else if (track.privilege?.st < 0 && isAccountLoggedIn()) {
     result.playable = false;
     result.reason = '已下架';
-  }  
+  }
   return result;
 }
 
