@@ -20,6 +20,11 @@ export function getMP3(id) {
     const quality = store.state.settings?.musicQuality ?? '320000';
     return quality === 'flac' ? '350000' : quality;
   };
+  const getLevel = () => {
+    // 当返回的 quality >= 400000时，就会优先返回 hi-res
+    const quality = store.state.settings?.musicQuality ?? '320000';
+    return quality === 'flac' ? '350000' : quality;
+  };
 
   return request({
     url: '/song/url/v1',
@@ -27,6 +32,7 @@ export function getMP3(id) {
     params: {
       id,
       br: getBr(),
+      level: 'jymaster',
     },
   });
 }
