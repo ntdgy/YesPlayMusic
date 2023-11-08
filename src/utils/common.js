@@ -29,7 +29,7 @@ export function isTrackPlayable(track) {
   } else if (track.fee === 8 || track.privilege?.fee === 8){
     result.playable = true;
     result.reason = '可以播放';
-    rerurn result;
+    return result;
   }else if (
     track.noCopyrightRcmd !== null &&
     track.noCopyrightRcmd !== undefined
