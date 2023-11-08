@@ -398,7 +398,7 @@ export default class {
       return getMP3(track.id).then(result => {
         if (!result.data[0]) return null;
         if (!result.data[0].url) return null;
-        if (result.data[0].freeTrialInfo !== null) return null; // 跳过只能试听的歌曲
+        // if (result.data[0].freeTrialInfo !== null) return null; // 跳过只能试听的歌曲
         const source = result.data[0].url.replace(/^http:/, 'https:');
         if (store.state.settings.automaticallyCacheSongs) {
           cacheTrackSource(track, source, result.data[0].br);
