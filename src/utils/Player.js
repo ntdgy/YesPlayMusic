@@ -410,6 +410,7 @@ export default class {
       // return new Promise(resolve => {
       //   resolve(`https://music.163.com/song/media/outer/url?id=${track.id}`);
       // });
+      console.log("not logged in");
       return getMP3(track.id).then(result => {
         if (!result.data[0]) return null;
         if (!result.data[0].url) return null;
