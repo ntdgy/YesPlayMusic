@@ -394,7 +394,8 @@ export default class {
     });
   }
   _getAudioSourceFromNetease(track) {
-    if (isAccountLoggedIn()) {
+    // if (isAccountLoggedIn()) {
+    if (true) {
       return getMP3(track.id).then(result => {
         if (!result.data[0]) return null;
         if (!result.data[0].url) return null;
